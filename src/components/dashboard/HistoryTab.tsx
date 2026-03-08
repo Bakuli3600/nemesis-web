@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { supabase } from '../../supabaseClient';
-import { History, Shield, Database, MessageSquare, Network, Wifi, ArrowRight, Clock } from 'lucide-react';
+import { History, Shield, Database, MessageSquare, Network, ArrowRight, Clock } from 'lucide-react';
 
 export default function HistoryTab() {
   const [history, setHistory] = useState<any[]>([]);
