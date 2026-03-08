@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Wifi, Activity, Database, Search, Zap, Terminal } from 'lucide-react';
+import { Wifi, Activity, Database, Zap, Terminal } from 'lucide-react';
 import { useNemesisStore } from '../../store/useNemesisStore';
 import { db, auth } from '../../firebase/firebaseConfig';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';

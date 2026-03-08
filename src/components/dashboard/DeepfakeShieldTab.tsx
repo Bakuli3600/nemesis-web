@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { UploadCloud, ShieldCheck, AlertOctagon, Loader2, Cpu, FileText, CheckCircle2, Video, Image as ImageIcon, Zap, Activity } from 'lucide-react';
+import { ShieldCheck, AlertOctagon, Loader2, Cpu, CheckCircle2, Video, Image as ImageIcon, Zap, Activity, Link as LinkIcon } from 'lucide-react';
 import { useNemesisStore } from '../../store/useNemesisStore';
 import { db, auth } from '../../firebase/firebaseConfig';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';

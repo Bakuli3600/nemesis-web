@@ -301,7 +301,7 @@ export default function BreachIntelTab() {
                         />
                       </div>
                       <button 
-                        onClick={handleSeleniumScrape}
+                        onClick={() => handleSeleniumScrape()}
                         disabled={!scrapeUrl || !query || isAnalyzing}
                         className="w-full py-4 bg-blue-500/10 border border-blue-500/20 rounded-xl text-[10px] font-black text-blue-400 uppercase tracking-widest hover:bg-blue-500 hover:text-white transition-all disabled:opacity-30"
                       >
