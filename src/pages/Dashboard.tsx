@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   LayoutDashboard, Shield, MessageSquare, 
   Database, Network, Wifi, History, 
-  ChevronRight, Layout, Zap, Activity 
+  Zap
 } from 'lucide-react';
 
 // Import Tabs

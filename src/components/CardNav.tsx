@@ -1,38 +1,17 @@
-import { LayoutDashboard, LogOut, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { LogOut } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { auth } from '../firebase/firebaseConfig';
 import './CardNav.css';
 
-interface NavLinkItem {
-  label: string;
-  href: string;
-  ariaLabel?: string;
-}
-
-interface NavItemGroup {
-  label: string;
-  accentColor: string;
-  bgColor: string;
-  textColor: string;
-  links: NavLinkItem[];
-}
-
 interface CardNavProps {
   logo: string;
-  items: NavItemGroup[];
-  buttonBgColor?: string;
-  buttonTextColor?: string;
 }
 
 const CardNav = ({
-  logo,
-  items,
-  buttonBgColor = "#f3d36b",
-  buttonTextColor = "#000"
+  logo
 }: CardNavProps) => {
-  const location = useLocation();
   const navigate = useNavigate();
   const [displayName, setDisplayName] = useState<string | null>(null);
 
@@ -57,9 +36,6 @@ const CardNav = ({
   return (
     <div className="tactical-nav-container">
       <nav className="tactical-nav !justify-center relative">
-        {/* Left/Right spacers to keep center truly centered if needed, 
-            but using absolute positioning for the action section is cleaner for "middle" logo */}
-        
         {/* Center: Logo & Name */}
         <Link to="/dashboard" className="nav-logo-section !flex !flex-row !gap-3 !mx-auto">
           <img src={logo} alt="NEMESIS" className="nav-logo-img !h-8 w-auto" />

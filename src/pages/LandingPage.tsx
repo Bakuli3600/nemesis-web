@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import { Shield, ArrowRight, EyeOff, Activity, LayoutDashboard, Database, Zap, Binary, Wifi, Cpu, Globe, Server, Lock, Fingerprint, Network, Terminal, Code, MessageSquare, Radar } from 'lucide-react';
+import { Shield, ArrowRight, EyeOff, Database, Zap, Binary, Wifi, Cpu, Globe, Server, Lock, Fingerprint, Network, Terminal, Code, MessageSquare, Radar } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase/firebaseConfig';

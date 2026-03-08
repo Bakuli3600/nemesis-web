@@ -1,12 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Search, EyeOff, Database, Fingerprint, Shield, 
-  AlertTriangle, CheckCircle2, Link as LinkIcon, 
-  Cpu, Lock, Terminal, Globe, Zap, AlertCircle,
-  FileText, Key, MessageSquare, Download, LogIn,
-  ArrowRight, Activity, Clock, Image as ImageIcon, Network, 
-  Target, AlertOctagon, RefreshCw
+  Globe, Zap, MessageSquare, LogIn, Activity, Network, RefreshCw, Clock, Shield, Cpu, Image as ImageIcon, FileText, Terminal, Target, Fingerprint
 } from 'lucide-react';
 import { useNemesisStore } from '../../store/useNemesisStore';
 import { db, auth } from '../../firebase/firebaseConfig';

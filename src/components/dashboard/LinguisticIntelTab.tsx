@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, AlertOctagon, Terminal, Zap, MessageSquare, Activity } from 'lucide-react';
+import { Terminal, Zap, MessageSquare, Activity } from 'lucide-react';
 import { useNemesisStore } from '../../store/useNemesisStore';
 import { db, auth } from '../../firebase/firebaseConfig';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';

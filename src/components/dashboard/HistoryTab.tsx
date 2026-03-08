@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { db, auth } from '../../firebase/firebaseConfig';
 import { collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
-import { History, Shield, Database, MessageSquare, Network, Wifi, Clock, ArrowRight } from 'lucide-react';
+import { History, Shield, Database, MessageSquare, Network, Wifi, ArrowRight } from 'lucide-react';
 
 export default function HistoryTab() {
   const [history, setHistory] = useState<any[]>([]);

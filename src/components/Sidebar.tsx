@@ -1,5 +1,5 @@
 import { NavLink, Link } from 'react-router-dom';
-import { LayoutDashboard, ShieldAlert, Activity, MessageSquare, Home, EyeOff, Database, Wifi } from 'lucide-react';
+import { LayoutDashboard, Database } from 'lucide-react';
 import { motion } from 'framer-motion';
 import logo from '../assets/logo.png';
 

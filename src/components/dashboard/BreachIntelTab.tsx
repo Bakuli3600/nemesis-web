@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Database, ShieldAlert, AlertTriangle, Fingerprint, ExternalLink, ShieldCheck, Mail, Globe, Lock, FileText, Activity, ChevronRight, AlertOctagon, Brain, Server, Target, Layout } from 'lucide-react';
+import { Search, Database, ShieldAlert, Fingerprint, ExternalLink, Mail, Globe, Activity, ChevronRight, Brain, Server, Target, Layout } from 'lucide-react';
 import { useNemesisStore } from '../../store/useNemesisStore';
 import { db, auth } from '../../firebase/firebaseConfig';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
