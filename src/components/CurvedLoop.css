@@ -1,0 +1,40 @@
+.curved-loop-jacket {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.curved-loop-svg {
+  user-select: none;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  display: block;
+  font-size: 6rem;
+  fill: #f3d36b;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1;
+  filter: drop-shadow(0 0 20px rgba(243, 211, 107, 0.2));
+}
+
+@media (max-width: 768px) {
+  .curved-loop-svg {
+    font-size: 3rem;
+  }
+}
+
+.curved-loop-text-glow {
+  fill: #f3d36b;
+  text-shadow: 0 0 30px rgba(243, 211, 107, 0.5);
+}
+
+.curved-loop-text-outline {
+  fill: transparent;
+  stroke: rgba(243, 211, 107, 0.3); /* Match golden theme but subtle */
+  stroke-width: 1px;
+}

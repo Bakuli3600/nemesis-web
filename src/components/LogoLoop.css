@@ -1,0 +1,103 @@
+.logoloop {
+  position: relative;
+  overflow: hidden;
+  --logoloop-gap: 32px;
+  --logoloop-logoHeight: 28px;
+  --logoloop-fadeColor: #050510;
+}
+
+.logoloop--horizontal {
+  width: 100%;
+}
+
+.logoloop--vertical {
+  height: 100%;
+}
+
+.logoloop--fade::before,
+.logoloop--fade::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 15%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.logoloop--fade::before {
+  left: 0;
+  background: linear-gradient(to right, var(--logoloop-fadeColor), transparent);
+}
+
+.logoloop--fade::after {
+  right: 0;
+  background: linear-gradient(to left, var(--logoloop-fadeColor), transparent);
+}
+
+.logoloop__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.logoloop--vertical .logoloop__track {
+  flex-direction: column;
+  height: max-content;
+  width: 100%;
+}
+
+.logoloop__list {
+  display: flex;
+  align-items: center;
+  gap: var(--logoloop-gap);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  padding-left: var(--logoloop-gap);
+}
+
+.logoloop--vertical .logoloop__list {
+  flex-direction: column;
+  padding-left: 0;
+  padding-top: var(--logoloop-gap);
+}
+
+.logoloop__item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--logoloop-logoHeight);
+  transition: transform 0.3s ease;
+}
+
+.logoloop--scale-hover .logoloop__item:hover {
+  transform: scale(1.1);
+}
+
+.logoloop__node {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoloop__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logoloop img {
+  height: 100%;
+  width: auto;
+  display: block;
+  filter: grayscale(1) brightness(1.5);
+  transition: filter 0.3s ease;
+}
+
+.logoloop__item:hover img {
+  filter: grayscale(0) brightness(1);
+}

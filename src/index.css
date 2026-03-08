@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+@theme {
+  --color-liquid-bg: #020617;
+  --color-liquid-panel: rgba(15, 23, 42, 0.4);
+  --color-liquid-accent: #f3d36b;
+  --color-liquid-text: #ffffff;
+  --color-liquid-text-dim: #94a3b8;
+  --color-liquid-border: rgba(255, 255, 255, 0.08);
+}
+
+:root {
+  --liquid-bg: #020617;
+  --liquid-panel: rgba(15, 23, 42, 0.6);
+  --liquid-accent: #f3d36b;
+  --liquid-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--liquid-bg);
+  color: white;
+  min-height: 100vh;
+}
+
+/* SEXY LIQUID GLASS */
+.liquid-glass {
+  background: var(--liquid-panel);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid var(--liquid-border);
+  border-radius: 2rem;
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.05),
+    0 20px 50px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-glass::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(243, 211, 107, 0.03) 0%, transparent 70%);
+  pointer-events: none;
+  animation: slow-rotate 20s linear infinite;
+}
+
+@keyframes slow-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.liquid-card {
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(15px);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.liquid-card:hover {
+  background: rgba(30, 41, 59, 0.6);
+  border-color: rgba(243, 211, 107, 0.4);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.5), 0 18px 36px -18px rgba(243, 211, 107, 0.2);
+}
+
+/* GRADIENT TEXT */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #ffffff 0%, #f3d36b 50%, #b4941f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* SHIMMER EFFECT */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: skewX(-25deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  100% { left: 200%; }
+}
+
+/* MESH BACKGROUND */
+.mesh-bg {
+  position: fixed;
+  inset: 0;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.2) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(243, 211, 107, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(176, 38, 255, 0.1) 0px, transparent 50%);
+  z-index: -10;
+}
+
+.grid-dots {
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: -9;
+}
+
+/* GLOWING BEAM */
+.glow-beam {
+  position: absolute;
+  width: 1px;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, #f3d36b, transparent);
+  animation: beam-drop 4s linear infinite;
+}
+
+@keyframes beam-drop {
+  0% { transform: translateY(-100vh); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* RESPONSIVE PADDING & SPACING */
+.container-responsive {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 640px) { .container-responsive { padding-left: 2rem; padding-right: 2rem; } }
+@media (min-width: 1024px) { .container-responsive { padding-left: 4rem; padding-right: 4rem; } }
+
+/* MOBILE OPTIMIZATIONS (iOS/Android) */
+@media (max-width: 768px) {
+  .liquid-glass {
+    border-radius: 1.25rem;
+    padding: 1.5rem !important;
+  }
+  
+  .liquid-card {
+    padding: 1.5rem !important;
+  }
+
+  h1 { font-size: 3rem !important; line-height: 1 !important; }
+  h2 { font-size: 2rem !important; }
+  
+  .glow-beam { display: none; } /* Hide heavy animations on mobile */
+}
+
+/* Fix for safe area insets on modern mobile devices */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
