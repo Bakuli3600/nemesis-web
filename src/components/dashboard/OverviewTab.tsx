@@ -1,7 +1,9 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar, Tooltip } from 'recharts';
-import { ShieldAlert, Activity, AlertTriangle, History, TrendingUp, Zap, Database, Fingerprint, Network, Search, Lock } from 'lucide-react';
+import { ShieldAlert, Activity, History, TrendingUp, Zap, Database, Network, Search, Lock, Clock } from 'lucide-react';
 import { useNemesisStore } from '../../store/useNemesisStore';
+import { supabase } from '../../supabaseClient';
 
 const mockAttackProbabilities = [
   { subject: 'Phishing', A: 78, fullMark: 100 },
@@ -12,7 +14,30 @@ const mockAttackProbabilities = [
 ];
 
 export default function OverviewTab() {
-  const { activities, globalRiskScore, totalScans, threatsDetected, blockchainAnchors } = useNemesisStore();
+  const { globalRiskScore, totalScans, threatsDetected, blockchainAnchors } = useNemesisStore();
+  const [liveMissions, setLiveMissions] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchLiveMissions = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('intel_data')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(5);
+        if (error) throw error;
+        setLiveMissions(data || []);
+      } catch (e) {
+        console.error("Overview mission fetch failed:", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchLiveMissions();
+    const interval = setInterval(fetchLiveMissions, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   const stats = [
     { label: "Total Interrogations", val: totalScans, icon: Search, color: "#f3d36b" },
@@ -39,7 +64,7 @@ export default function OverviewTab() {
                 Station: Bravo_01
             </div>
             <div className="px-6 py-3 liquid-glass flex items-center gap-3 text-xs font-black uppercase tracking-widest border-white/5 text-[#f3d36b]">
-                <Zap size={14} /> Neural Link: Stable
+                <Zap size={14} /> Neural Link: Supabase Active
             </div>
         </div>
       </header>
@@ -103,7 +128,7 @@ export default function OverviewTab() {
           </div>
         </motion.div>
 
-        {/* Tactical Feed */}
+        {/* Tactical Feed - Now Powered by Supabase */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -113,44 +138,45 @@ export default function OverviewTab() {
           <div className="flex justify-between items-center mb-10">
             <div className="flex items-center gap-4">
                 <History className="text-[#f3d36b]" size={20} />
-                <h2 className="text-xs font-black text-[#a0a0a0] uppercase tracking-[0.3em]">Tactical Activity Buffer</h2>
+                <h2 className="text-xs font-black text-[#a0a0a0] uppercase tracking-[0.3em]">Neural Mission Stream (Supabase)</h2>
             </div>
-            <div className="px-3 py-1 bg-[#f3d36b]/10 border border-[#f3d36b]/20 rounded-full text-[9px] font-black text-[#f3d36b] uppercase tracking-[0.4em] animate-pulse">
-                Neural_Stream
+            <div className="px-3 py-1 bg-green-500/10 border border-green-500/20 rounded-full text-[9px] font-black text-green-500 uppercase tracking-[0.4em] animate-pulse">
+                LIVE_FEED
             </div>
           </div>
           
           <div className="flex-1 overflow-y-auto pr-4 space-y-4 custom-scrollbar">
-            {activities.length > 0 ? activities.map((item) => (
+            {loading ? (
+                <div className="h-full flex items-center justify-center">
+                    <Activity className="animate-spin text-gray-700" />
+                </div>
+            ) : liveMissions.length > 0 ? liveMissions.map((item) => (
               <motion.div 
                 key={item.id} 
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="flex gap-6 p-6 liquid-card group cursor-target"
+                className="flex gap-6 p-6 liquid-card group cursor-target bg-white/[0.01]"
               >
                 <div className="mt-1 shrink-0">
-                  {item.type === 'threat' && <AlertTriangle className="w-5 h-5 text-red-500" />}
-                  {item.type === 'blockchain' && <Database className="w-5 h-5 text-blue-400" />}
-                  {item.type === 'honeypot' && <Fingerprint className="w-5 h-5 text-[#f3d36b]" />}
-                  {item.type === 'scan' && <Zap className="w-5 h-5 text-green-500" />}
-                  {item.type === 'intel' && <Activity className="w-5 h-5 text-purple-400" />}
+                  {item.risk_score > 70 ? <ShieldAlert className="w-5 h-5 text-red-500" /> : <Zap className="w-5 h-5 text-[#f3d36b]" />}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex justify-between items-start mb-2">
                     <span className="text-[10px] font-black uppercase tracking-widest text-[#a0a0a0]">
-                      [{item.type}]
+                      [{item.source.toUpperCase()}]
                     </span>
-                    <span className="text-[9px] text-gray-600 font-mono font-black uppercase">
-                      {new Date(item.timestamp).toLocaleTimeString()}
+                    <span className="text-[9px] text-gray-600 font-mono font-black uppercase flex items-center gap-2">
+                      <Clock size={10} /> {new Date(item.created_at).toLocaleTimeString()}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-200 font-bold leading-relaxed">{item.msg}</p>
+                  <p className="text-sm text-gray-200 font-bold leading-relaxed mb-1 truncate">Target: {item.target}</p>
+                  <p className="text-[11px] text-gray-500 font-medium line-clamp-1 opacity-70">{item.content}</p>
                 </div>
               </motion.div>
             )) : (
                 <div className="h-full flex flex-col items-center justify-center text-gray-800">
                     <Activity className="w-16 h-16 mb-6 opacity-10 animate-pulse" />
-                    <p className="text-xs font-black tracking-[0.4em] uppercase opacity-20">Interrogating Node Stream...</p>
+                    <p className="text-xs font-black tracking-[0.4em] uppercase opacity-20">Awaiting Neural Signals...</p>
                 </div>
             )}
           </div>
@@ -186,7 +212,7 @@ export default function OverviewTab() {
                     <div className="flex justify-between items-start mb-6">
                         <div>
                             <p className="text-sm text-white font-black uppercase mb-1">{asset.label}</p>
-                            <span className="text-[9px] text-gray-500 font-black uppercase tracking-widest">{asset.type}</span>
+                            <span className="text-[9px] font-black text-gray-500 font-black uppercase tracking-widest">{asset.type}</span>
                         </div>
                         <div className={`w-2 h-2 rounded-full ${asset.status === 'Active' ? 'bg-red-500 animate-ping' : 'bg-gray-700'}`} />
                     </div>
